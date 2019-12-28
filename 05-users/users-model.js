@@ -5,7 +5,8 @@ module.exports = {
   find,
   findBy,
   findById,
-  edit
+  edit,
+  editHelperId
 };
 
 function find() {
@@ -30,8 +31,18 @@ function findById(id) {
 
 async function edit(userID, student){ //should I  async??
   await db('users')
-          .where({id: userID}) //{id: id} you are trying to find the user by the new student ID!!!!
+          .where({id: userID}) 
           .update('student_id', student.id)
+
+          return findById(userID)
+
+       
+}
+
+async function editHelperId(userID, helper){ //should I  async??
+  await db('users')
+          .where({id: userID}) 
+          .update('helper_id', helper.id)
 
           return findById(userID)
 
