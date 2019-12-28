@@ -7,6 +7,8 @@ const Helpers = require('./helpers-model')
 //only logged in users can do this!
 const restricted = require('../01-auth/restricted-middleware.js');
 
+const repeatedID = require('../01-auth/repeat-id-middleware')
+
 router.get('/', restricted,  (req, res) => { //REMOVED checkRole('student'),
   Helpers.find()
     .then(helpers => {
@@ -15,7 +17,7 @@ router.get('/', restricted,  (req, res) => { //REMOVED checkRole('student'),
     .catch(err => res.send(err));
 });
 
-router.post('/',  restricted, (req, res) => { //this should also be restricted by whether or not they have a student_id!!!!
+router.post('/',  restricted, repeatedID.repeatHelperId, (req, res) => { //this should also be restricted by whether or not they have a student_id!!!!
 
     const userID = req.token.id;
 
