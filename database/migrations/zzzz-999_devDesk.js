@@ -31,7 +31,8 @@ exports.up = function(knex) {
   .createTable('students', students => {
     students.increments()
     students
-       .integer(ticket_id)
+       .integer('ticket_id')
+       .unsigned()
        .unique()
        .references('id')
        .inTable('tickets')
@@ -43,7 +44,8 @@ exports.up = function(knex) {
 .createTable('helpers', helpers => {
   helpers.increments()
   helpers
-      .integer(ticket_id)
+      .integer('ticket_id')
+      .unsigned()
       .unique()
       .references('id')
       .inTable('tickets')
@@ -66,6 +68,7 @@ exports.up = function(knex) {
 
           users
             .integer('student_id')
+            .unsigned()
             .unique()
             .references('id')
             .inTable('students')
@@ -74,6 +77,7 @@ exports.up = function(knex) {
 
           users
             .integer('helper_id')
+            .unsigned()
             .unique()
             .references('id')
             .inTable('helpers')
