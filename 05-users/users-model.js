@@ -28,10 +28,12 @@ function findById(id) {
     .first();
 }
 
-async function edit(filter){ //should I  async??
-  const count = await db('users')
-          .where(filter) //{id: id}
-          .update('student_id', filter.id)
+async function edit(userID, student){ //should I  async??
+  await db('users')
+          .where({id: userID}) //{id: id} you are trying to find the user by the new student ID!!!!
+          .update('student_id', student.id)
 
-        return findById(filter)
+          return findById(userID)
+
+       
 }
