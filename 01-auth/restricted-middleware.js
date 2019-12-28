@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 
-const Users = require('../users/users-model.js');
+const Users = require('../05-users/users-model.js');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers; //in insomnia don't put the token with quotes! (on the header)

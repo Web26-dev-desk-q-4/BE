@@ -1,9 +1,9 @@
 const router = require('express').Router();
 
 const Users = require('./users-model.js');
-const restricted = require('../01-auth/restricted-middleware.js.js');
+const restricted = require('../01-auth/restricted-middleware.js');
 
-router.get('/', restricted, checkRole('student'), (req, res) => {
+router.get('/', restricted,  (req, res) => { //REMOVED checkRole('student'),
   Users.find()
     .then(users => {
       res.json(users);
@@ -11,7 +11,7 @@ router.get('/', restricted, checkRole('student'), (req, res) => {
     .catch(err => res.send(err));
 });
 
-function checkRole(role){
+function checkRole(role){ //don't think we need to restruct any users from seeing other users, removed as middleware from above GET
   return function(req, res, next){
     if(req.token && role === req.token.role){
       next()
