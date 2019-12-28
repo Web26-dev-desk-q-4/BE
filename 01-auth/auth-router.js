@@ -15,7 +15,7 @@ router.post('/register', (req, res) => {
       res.status(201).json(saved);
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json({error: "Server side, could not add user, check req.body"})
     });
 });
 
@@ -35,11 +35,11 @@ router.post('/login', (req, res) => {
           message: `Welcome ${user.username}!`,
         });
       } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
+        res.status(401).json({ message: 'Invalid Token/Credentials' });
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json({error: "Server side, could not log in, check token/user existence"});
     });
 });
 

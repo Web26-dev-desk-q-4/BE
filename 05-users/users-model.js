@@ -5,10 +5,11 @@ module.exports = {
   find,
   findBy,
   findById,
+  edit
 };
 
 function find() {
-  return db('users').select('id', 'username', 'password');
+  return db('users').select('id', 'username', 'password', 'student_id');
 }
 
 function findBy(filter) {
@@ -25,4 +26,12 @@ function findById(id) {
   return db('users')
     .where({ id })
     .first();
+}
+
+async function edit(filter){ //should I  async??
+  const count = await db('users')
+          .where(filter) //{id: id}
+          .update('student_id', filter.id)
+
+        return findById(filter)
 }
