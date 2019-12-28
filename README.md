@@ -1,16 +1,9 @@
-# Web Auth III Guided Project
+# Token providing backend
 
-Guided project for **Web Auth III** Module.
-
-## Prerequisites
-
-- [SQLite Studio](https://sqlitestudio.pl/index.rvt?act=download) installed.
-
-## Project Setup
-
-- [ ] fork and clone this repository.
-- [ ] **CD into the folder** where you cloned **your fork**.
-- [ ] type`npm i` to download dependencies.
-- [ ] type `npm run server` to start the API.
-
-Please follow along as the instructor adds support for `JSON Web Tokens (JWT)` to the API.
+-should provide login and registration functionality (POST username and passwords)
+-should provide ability for users to become students or helpers (POST respective IDs)
+-should provide ability to POST tickets as students
+- should provide ability to PUT tickets as helpers
+- should allow GET of USER's created tickets with student ID
+- should allow GET of ALL tickets with helper ID
+-should allow DEL of USER created ticket with their student ID
