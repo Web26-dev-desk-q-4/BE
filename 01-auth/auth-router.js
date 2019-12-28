@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken')
 
 const Users = require('../05-users/users-model.js');
 
+const tokenHelper = require('./token-helper')
+
 // for endpoints beginning with /api/auth
 router.post('/register', (req, res) => {
   let user = req.body;
@@ -27,7 +29,7 @@ router.post('/login', (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
 //sign token
-        const token = signToken(user);
+        const token = tokenHelper.signToken(user);
 //send token
 
         res.status(200).json({
@@ -43,23 +45,24 @@ router.post('/login', (req, res) => {
     });
 });
 
-function signToken(user){
-const payload = {
-  username:user.username,
- // role: 'student' //this will come from the database
-  id: user.id,
-  student_id: user.student_id,
-  helper_id: user.helper_id
-};
+// function signToken(user){
+// const payload = {
+//   username:user.username,
+//  // role: 'student' //this will come from the database
+//   id: user.id,
+//   student_id: user.student_id,
+//   helper_id: user.helper_id
+// };
 
-const secret = process.env.JWT_SECRET || 'is it secret, is it safe?';
+// const secret = process.env.JWT_SECRET || 'is it secret, is it safe?';
 
-const options = {
-  expiresIn: '1h',
+// const options = {
+//   expiresIn: '1h',
 
-};
+// };
 
-  return jwt.sign(payload, secret, options)
-};
+//   return jwt.sign(payload, secret, options)
+// };
 
 module.exports = router;
+

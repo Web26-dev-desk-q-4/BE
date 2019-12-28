@@ -4,6 +4,8 @@ const Users = require('../05-users/users-model');
 
 const Students = require('./students-model')
 
+const tokenHelper = require('../01-auth/token-helper')
+
 //only logged in users can do this!
 const restricted = require('../01-auth/restricted-middleware.js');
 
@@ -27,7 +29,12 @@ router.post('/',  restricted, repeatedID.repeatSchoolId, (req, res) => { //this 
 
             Users.edit(userID, student)
                 .then(user => {
-                    res.status(200).json(user)
+                    const token = tokenHelper.signToken(user);
+
+                    res.status(200).json({
+                        token,
+                        user
+                    })
 
                 })
                 .catch(err => {
