@@ -54,6 +54,48 @@ exports.up = function(knex) {
 
 })
 
+.createTable('helper_tickets', helper_tickets => {
+  helper_tickets.increments()
+
+  helper_tickets
+  .integer('helper_id')
+  .unsigned()
+  .references('id')
+  .inTable('helpers')
+  .onDelete('RESTRICT') //this should be restrict because helpers shouldn't delete student made tickets
+  .onUpdate('CASCADE')
+
+  helper_tickets
+      .integer('ticket_id')
+      .unsigned()
+      .unique()//tickets should be unique but not helper IDs
+      .references('id')
+      .inTable('tickets')
+      .onDelete('RESTRICT') //this should be restrict because helpers shouldn't delete student made tickets
+      .onUpdate('CASCADE')
+
+})
+.createTable('student_tickets', student_tickets => {
+  student_tickets.increments()
+  student_tickets
+  .integer('student_id')
+  .unsigned()
+  .references('id')
+  .inTable('students')
+  .onDelete('CASCADE') //restrict will make it so it doesn't delete the parent record too (tickets record), we want it to cascade
+  .onUpdate('CASCADE')
+
+  student_tickets
+      .integer('ticket_id')
+      .unsigned()
+      .unique() //tickets should be unique but not student IDs
+      .references('id')
+      .inTable('tickets')
+      .onDelete('CASCADE') //restrict will make it so it doesn't delete the parent record too (tickets record), we want it to cascade
+      .onUpdate('CASCADE')
+
+})
+
   .createTable('users', users => {
           users.increments();
 
@@ -97,6 +139,8 @@ exports.down = function(knex, Promise) {
   .dropTableIfExists('users')
   .dropTableIfExists('helpers')
   .dropTableIfExists('students')
+  .dropTableIfExists('helper_tickets')
+  .dropTableIfExists('student_tickets')
   .dropTableIfExists('tickets');
 
 };
