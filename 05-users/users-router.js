@@ -11,13 +11,13 @@ router.get('/', restricted,  (req, res) => { //REMOVED checkRole('student'),
     .catch(err => res.send(err));
 });
 
-function checkRole(role){ //don't think we need to restruct any users from seeing other users, removed as middleware from above GET
-  return function(req, res, next){
-    if(req.token && role === req.token.role){
-      next()
-    }else{
-      res.status(403).json({message: "No access for students"})
-    }
-  }
-}
+// function checkRole(role){ //don't think we need to restruct any users from seeing other users, removed as middleware from above GET
+//   return function(req, res, next){
+//     if(req.token && role === req.token.role){
+//       next()
+//     }else{
+//       res.status(403).json({message: "No access for students"})
+//     }
+//   }
+// }
 module.exports = router;

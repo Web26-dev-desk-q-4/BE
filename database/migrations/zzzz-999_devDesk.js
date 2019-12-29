@@ -25,7 +25,7 @@ exports.up = function(knex) {
 
     tickets
       .string('answer', 255)
-      .notNullable()
+      //.notNullable() //THIS SHOULD NOT BE NOT NULLABLE!!!
 })
 
   .createTable('students', students => {
