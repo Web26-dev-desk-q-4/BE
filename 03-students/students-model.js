@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function find() {
-  return db('students').select('id', 'ticket_id');
+  return db('students').select('id');
 }
 
 function findBy(filter) {

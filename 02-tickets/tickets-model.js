@@ -14,18 +14,23 @@ function find() { //if helper
 
 function findBy(id) { //if student
   // return db('tickets').where(filter);
- 
-return db('students')
+ console.log(id)
+return db('student_tickets')
         .select('*')
-        .join('tickets', 'students.ticket_id', 'tickets.id')
-        .where('students.id', id)
+        .join('tickets', 'student_tickets.ticket_id', 'tickets.id')
+        .where('student_tickets.student_id', id)
  
 
         
 }
 
-async function add(ticketBody) { //if student, should PUT the Students table as well
+async function add(ticketBody, studentID) { //if student, should PUT the Students table as well
   const [id] = await db('tickets').insert(ticketBody, 'id');
+  const studentTicket = await db('student_tickets')
+                                .insert({
+                                  student_id: studentID,
+                                  ticket_id: id
+                                })
 //console.log(ticketBody)
   return findById(id);
 }

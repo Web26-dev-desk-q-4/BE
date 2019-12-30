@@ -10,11 +10,11 @@ const role = require('./ticket-restrictions')
 
 
 //POST Ticket as Student X'd - requires everything BUT answer or open (on next latest migration)
-router.post('/create', restricted, role.checkIfStudent, (req,res) => {
-
+router.post('/create/:id', restricted, role.checkIfStudent, (req,res) => { //requires student id!!!
+    const studentID = req.params.id;
     const ticketBody = req.body
 //console.log(ticketBody)
-    Tickets.add(ticketBody)
+    Tickets.add(ticketBody, studentID)
         .then(ticket => {
             //console.log(ticket.id)
             res.status(201).json({message: `Ticket created: ${ticket.title}`})
@@ -56,7 +56,7 @@ router.get('/helper/:id', restricted, role.checkIfHelper, (req, res) => { //REMO
 
 
 
-//GET Student's X'd
+//GET Student's O'd
 router.get('/:id', restricted, role.checkIfStudent, (req, res) => { //the :id should be the User's id!!!!!!!!!!!!!!!!!
  const id = req.params.id;
 
