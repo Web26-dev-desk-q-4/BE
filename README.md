@@ -16,3 +16,7 @@
     --Completed
         X Also created a GET for helper_id specified
 -should allow DEL of USER created ticket with their student ID
+    --Completed
+
+
+All CRUD tested at time of full completion

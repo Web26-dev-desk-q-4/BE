@@ -86,7 +86,15 @@ async function checkoutTicket(ticketID, newTicketBody, helperID){
 }
 
 async function removeTicket(ticketID){
-      await db('tickets')
+      await db('helper_tickets')
+            .where({ticket_id: ticketID})
+            .del()
+
+      await db('student_tickets')
+            .where({ticket_id: ticketID})
+            .del()
+
+      return db('tickets')
               .where({id: ticketID})
-              .delete()
+              .del()
 }
