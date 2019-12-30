@@ -5,11 +5,13 @@ module.exports = {
   find,
   findBy,
   findById,
-  editTicket
+  editTicket,
+  checkoutTicket,
+  findByHelper
 };
 
 function find() { //if helper
-  return db('tickets').select('id', 'open', 'category','title', 'description', 'what_was_tried', 'answer' );
+  return db('tickets').select('id', 'open', 'checked_out', 'category','title', 'description', 'what_was_tried', 'answer' );
 }
 
 function findBy(id) { //if student
@@ -19,6 +21,18 @@ return db('student_tickets')
         .select('*')
         .join('tickets', 'student_tickets.ticket_id', 'tickets.id')
         .where('student_tickets.student_id', id)
+ 
+
+        
+}
+
+function findByHelper(id) { //if helper INDIVIDUAL SPECIFIC
+  // return db('tickets').where(filter);
+ console.log(id)
+return db('helper_tickets')
+        .select('*')
+        .join('tickets', 'helper_tickets.ticket_id', 'tickets.id')
+        .where('helper_tickets.helper_id', id)
  
 
         
@@ -51,4 +65,21 @@ async function editTicket(ticketID, newTicketBody){
   
          
   
+}
+
+async function checkoutTicket(ticketID, newTicketBody, helperID){
+  await db('tickets')
+          .where({id: ticketID}) 
+          .update('checked_out', newTicketBody.checked_out)
+
+  await db('helper_tickets')
+          .insert({
+            helper_id: helperID,
+            ticket_id: ticketID
+          })
+
+          return findById(ticketID)
+
+       
+
 }
