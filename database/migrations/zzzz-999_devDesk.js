@@ -8,6 +8,10 @@ exports.up = function(knex) {
        .defaultTo(true)
 
     tickets
+       .boolean('checked_out')
+       .defaultTo(false)
+
+    tickets
       .string('category', 255)
       .notNullable()
 
