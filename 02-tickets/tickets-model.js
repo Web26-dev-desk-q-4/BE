@@ -7,7 +7,8 @@ module.exports = {
   findById,
   editTicket,
   checkoutTicket,
-  findByHelper
+  findByHelper,
+  removeTicket
 };
 
 function find() { //if helper
@@ -82,4 +83,10 @@ async function checkoutTicket(ticketID, newTicketBody, helperID){
 
        
 
+}
+
+async function removeTicket(ticketID){
+      await db('tickets')
+              .where({id: ticketID})
+              .delete()
 }

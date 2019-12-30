@@ -24,7 +24,19 @@ router.post('/create/:id', restricted, role.checkIfStudent, (req,res) => { //req
         })
 });
 
+router.delete('/delete/:id', restricted, role.checkIfStudent, (req, res)=>{ //id should be ticket ID!!!
 
+    const ticketID = req.params.id;
+
+    Tickets.removeTicket(ticketID)
+            .then(count => {
+                res.status(200).json({message: `Tickets deleted: ${count}`})
+            })
+            .catch(err => {
+                res.status(500).json({error: 'Server-side, failure at Ticket DELETE'})
+            })
+
+})
 
 
 router.put('/edit/:id', restricted, role.checkIfHelper, (req, res) => { //id here should be ticket ID!!!!!!!!!!!!!!!!!!
