@@ -7,3 +7,6 @@
 - should allow GET of USER's created tickets with student ID
 - should allow GET of ALL tickets with helper ID
 -should allow DEL of USER created ticket with their student ID
+
+Product Vision Doc
+https://docs.google.com/document/d/1Qh0UMDPSuOlkNHmDym7yFuWH0Ug1Zasat3JZuWHyS5I/edit?usp=sharing
