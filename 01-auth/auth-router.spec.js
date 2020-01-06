@@ -8,7 +8,7 @@ describe('auth-router.js', () => {
         await db('users').truncate();
     });
 
-    describe('register POST', () => {//SECRET KEY MUST HAVE A VALUE, TESTING ENV NOT USING JWT_SECRET !!!!! why?
+    describe('register POST', () => {
 
         it('should', function(){
             return testingFrom(server)
@@ -22,7 +22,7 @@ describe('auth-router.js', () => {
 });
 
 
-    describe('register POST', () => {//SECRET KEY MUST HAVE A VALUE, TESTING ENV NOT USING JWT_SECRET !!!!! why?
+    describe('register POST', () => {
 
         it('should', function(){
 
