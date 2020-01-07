@@ -12,6 +12,7 @@ const role = require('./ticket-restrictions')
 //POST Ticket as Student X'd - requires everything BUT answer,open, or checked_out
 router.post('/create/:id', restricted, role.checkIfStudent, (req,res) => { //requires student id!!!
     const studentID = req.token.student_id;
+    //console.log("studentIDDDDDD", req.token.student_id)
     const ticketBody = req.body
 //console.log(ticketBody)
     Tickets.add(ticketBody, studentID)
