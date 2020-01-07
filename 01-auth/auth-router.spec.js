@@ -2,6 +2,11 @@ const testingFrom = require('supertest');
 const server = require('../00-api/server')
 const db = require('../database/dbConfig')
 
+
+//Have to make sure this is changed, saved, and run last so that it clears the database before the second run
+
+
+
 describe('auth-router.js', () => {
 
 
