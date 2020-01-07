@@ -4,9 +4,15 @@ const db = require('../database/dbConfig')
 
 describe('auth-router.js', () => {
 
-    afterEach(async () => {
+
+    afterAll(async () => {
         await db('users').truncate();
+        await db('students').truncate();
+        await db('helpers').truncate();
     });
+
+
+
 
     describe('register POST', () => {
 

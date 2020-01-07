@@ -22,15 +22,18 @@ router.get('/', restricted,  (req, res) => { //REMOVED checkRole('student'),
 router.post('/',  restricted, repeatedID.repeatSchoolId, (req, res) => { //this should also be restricted by whether or not they have a student_id!!!!
 
     const userID = req.token.id;
+    console.log("req.token.id", req.token.id)
+    console.log("userID", userID)
 
     Students.add()
         .then(student => {
             //update user db function here OR front end can do this POST and a user PUT, going with the former
-
+            console.log("student", student)
             Users.edit(userID, student)
                 .then(user => {
+                    console.log("user", user)
                     const token = tokenHelper.signToken(user);
-
+                    console.log("token consoled", token)
                     res.status(200).json({
                         token,
                         user

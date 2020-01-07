@@ -33,7 +33,7 @@ async function edit(userID, student){ //should I  async??
   await db('users')
           .where({id: userID}) 
           .update('student_id', student.id)
-
+          
           return findById(userID)
 
        
