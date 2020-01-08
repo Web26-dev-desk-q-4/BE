@@ -105,7 +105,7 @@ describe('student ID POST', () => {
                                    await delayForUser()
                                  }
                                }) 
-                            expect(res.user.username).toMatch('Quintus')
+                            expect(res.user.username).toMatch('Fuintus')
                         });
                     });
                 });
