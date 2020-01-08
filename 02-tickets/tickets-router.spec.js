@@ -197,11 +197,11 @@ describe('ticket POST', () => {
                             return testingFrom(server)
                             .post('/api/helpers')
                             .set('Authorization', authorization)
-                            .then(async res => {
+                            .then(res => {
                                 //let tokenValue = res.body.token;
                                 //let pathId = res.body.user.helper_id
                                 const secret = 'is it secret, is it safe?'
-                                let authorization = await res.body.token;
+                                let authorization = res.body.token;
                                 jwt.verify(authorization, secret , async function (err, decoded) {
                                     if(err){
                                       return

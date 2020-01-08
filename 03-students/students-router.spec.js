@@ -1,6 +1,7 @@
 const testingFrom = require('supertest');
 const server = require('../00-api/server')
 const db = require('../database/dbConfig')
+const jwt = require('jsonwebtoken')
 
 describe('students-router.js', () => {
 
@@ -71,16 +72,40 @@ describe('student ID POST', () => {
                     .post('/api/auth/login')
                     .send(formData)
                     .then(res => {
-                         let tokenValue = res.body.token;
-                        //console.log("res", res)
-                        console.log("tokenValue", tokenValue)
+                        //  let tokenValue = res.body.token;
+                        // //console.log("res", res)
+                        // console.log("tokenValue", tokenValue)
+
+                        const secret = 'is it secret, is it safe?'
+                        let authorization =  res.body.token;
+                        jwt.verify(authorization, secret , async function (err, decoded) {
+                            if(err){
+                              return
+                        
+                            }else{
+                              res.user = decoded;
+                              let delayForUser = () => {return res.user}
+                              await delayForUser()
+                            }
+                          }) 
                         return testingFrom(server)
                         .post('/api/helpers')
-                        .set('Authorization', tokenValue)
+                        .set('Authorization', authorization)
                         .then(res => {
-                             console.log("req.body", res.body)
-
-                            expect(res.body.user.username).toMatch('Quintus')
+                             //console.log("req.body", res.body)
+                             const secret = 'is it secret, is it safe?'
+                             let authorization =  res.body.token;
+                             jwt.verify(authorization, secret , async function (err, decoded) {
+                                 if(err){
+                                   return
+                             
+                                 }else{
+                                   res.user = decoded;
+                                   let delayForUser = () => {return res.user}
+                                   await delayForUser()
+                                 }
+                               }) 
+                            expect(res.user.username).toMatch('Quintus')
                         });
                     });
                 });

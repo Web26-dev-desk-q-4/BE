@@ -1,6 +1,7 @@
 const testingFrom = require('supertest');
 const server = require('../00-api/server')
 const db = require('../database/dbConfig')
+const jwt = require('jsonwebtoken')
 
 describe('helpers-router.js', () => {
 
@@ -75,15 +76,38 @@ describe('helper ID POST', () => {
                     .post('/api/auth/login')
                     .send({username: "Sextus", password: "sisthth_!#ded"})
                     .then(res => {
-                         let tokenValue = res.body.token;
+                         //let tokenValue = res.body.token;
                         //console.log("res", res)
-                        console.log("tokenValue", tokenValue)
+                        //console.log("tokenValue", tokenValue)
+                        const secret = 'is it secret, is it safe?'
+                        let authorization =  res.body.token;
+                        jwt.verify(authorization, secret , async function (err, decoded) {
+                            if(err){
+                              return
+                        
+                            }else{
+                              res.user = decoded;
+                              let delayForUser = () => {return res.user}
+                              await delayForUser()
+                            }
+                          }) 
                         return testingFrom(server)
                         .post('/api/helpers')
-                        .set('Authorization', tokenValue)
+                        .set('Authorization', authorization)
                         .then(res => {
-                             console.log("req.body", res.body)
-
+                             //console.log("req.body", res.body)
+                             const secret = 'is it secret, is it safe?'
+                             let authorization =  res.body.token;
+                             jwt.verify(authorization, secret , async function (err, decoded) {
+                                 if(err){
+                                   return
+                             
+                                 }else{
+                                   res.user = decoded;
+                                   let delayForUser = () => {return res.user}
+                                   await delayForUser()
+                                 }
+                               }) 
                             expect(res.body.user.username).toMatch('Sextus')
                         });
                     });

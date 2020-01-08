@@ -18,7 +18,7 @@ describe('auth-router.js', () => {
 
 
 
-    
+
 
     describe('register POST', () => {
 
@@ -43,7 +43,7 @@ describe('auth-router.js', () => {
                     .post('/api/auth/register')
                     .send(formData)
                     .then(res => {
-                        console.log(res.body)
+                        //console.log(res.body)
                         expect(res.body.username).toMatch("Secondus")
                         
                     });
